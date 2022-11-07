@@ -1,4 +1,5 @@
 interface StateInterface {
+  keyPhraseGeneration: boolean;
   loading: boolean;
   error: boolean;
   items: Array<string>;
@@ -6,7 +7,10 @@ interface StateInterface {
 
 const attributes = {
   keyPhrase: 'data-idea-matrix-key-phrase',
+  keyPhraseCleanButton: 'data-idea-matrix-key-phrase-clean',
+  keyPhraseGenerationButton: 'data-idea-matrix-key-phrase-generate',
   categorySelect: 'data-idea-matrix-category',
+  randomButton: 'data-idea-matrix-random',
   resultContainer: 'data-idea-matrix-result',
   resultTemplate: 'data-idea-matrix-result-tmp',
   resultItem: 'data-idea-matrix-result-item',
@@ -17,6 +21,9 @@ const attributes = {
 class IdeaMatrix extends HTMLElement {
   #$form: HTMLFormElement | null = null;
   #$keyPhraseInput: HTMLInputElement | null = null;
+  #$keyPhraseCleanButton: Element | null = null;
+  #$keyPhraseGenerationButton: Element | null = null;
+  #$randomButton: Element | null = null;
   #$categorySelect: HTMLSelectElement | null = null;
   #$resultContainer: Element | null = null;
   #$resultTemplate: Element | null = null;
@@ -24,12 +31,14 @@ class IdeaMatrix extends HTMLElement {
   #$errorTemplate: Element | null = null;
 
   #state: StateInterface = {
+    keyPhraseGeneration: false,
     loading: false,
     error: false,
     items: []
   }
 
-  #abortController: AbortController | null = null;
+  #abortControllerKeyPhrase: AbortController | null = null;
+  #abortControllerResult: AbortController | null = null;
 
   constructor() {
     super();
@@ -58,6 +67,12 @@ class IdeaMatrix extends HTMLElement {
 
     this.#$keyPhraseInput = this.querySelector(`input[${ attributes.keyPhrase }]`);
 
+    this.#$keyPhraseCleanButton = this.querySelector(`[${ attributes.keyPhraseCleanButton }]`);
+
+    this.#$keyPhraseGenerationButton = this.querySelector(`[${ attributes.keyPhraseGenerationButton }]`);
+
+    this.#$randomButton = this.querySelector(`[${ attributes.randomButton }]`);
+
     this.#$categorySelect = this.querySelector(`select[${ attributes.categorySelect }]`);
 
     this.#addEvents();
@@ -68,25 +83,97 @@ class IdeaMatrix extends HTMLElement {
       event.preventDefault();
       this.#fetchResults();
     });
+
+    if (this.#$keyPhraseCleanButton && this.#$keyPhraseInput) {
+      this.#$keyPhraseCleanButton.addEventListener('click', () => {
+        if (this.#$keyPhraseInput) {
+          this.#$keyPhraseInput.value = '';
+        }
+      })
+    }
+
+    if (this.#$keyPhraseGenerationButton && this.#$keyPhraseInput) {
+      this.#$keyPhraseGenerationButton.addEventListener('click', async () => {
+        if (await this.#fetchKeyPhrase())
+          this.#fetchResults();
+      });
+    }
+
+    if (this.#$randomButton) {
+      this.#$randomButton.addEventListener('click', async () => {
+        if (this.#$categorySelect) {
+          const optionsLength = this.#$categorySelect.querySelectorAll('option')?.length;
+          if (optionsLength > 1) {
+            const randomOptionIndex = Math.floor(Math.random() * (optionsLength - 1 + 1) + 1);
+            const $randomOption = this.#$categorySelect.querySelector(`option:nth-child(${ randomOptionIndex })`);
+            if ($randomOption && $randomOption instanceof HTMLOptionElement) {
+              $randomOption.selected = true;
+            }
+            // this.#$categorySelect.querySelector(`option:nth-child(${ randomOption })`)?.selected = true;
+          }
+        }
+
+        if (this.#$keyPhraseInput) {
+          await this.#fetchKeyPhrase();
+        }
+
+        this.#fetchResults();
+      })
+    }
+  }
+
+  async #fetchKeyPhrase(): Promise<true | void> {
+    if (!this.#$keyPhraseInput)
+      return;
+
+    this.#setState({ keyPhraseGeneration: true });
+
+    if (this.#abortControllerKeyPhrase) {
+      this.#abortControllerKeyPhrase.abort();
+    }
+    this.#abortControllerKeyPhrase = new AbortController();
+
+    try {
+      const response = await fetch('https://random-data-api.com/api/v2/appliances', {
+        signal: this.#abortControllerKeyPhrase.signal,
+      });
+      if (!response.ok)
+        throw new Error(`Response error from the "${response.url}" URL`);
+
+      const data = await response.json();
+
+      if (data instanceof Object && 'equipment' in data)
+        this.#$keyPhraseInput.value = data.equipment;
+      
+      this.#setState({ keyPhraseGeneration: false });
+      return true;
+
+    } catch (error) {
+      if (!(error instanceof DOMException) || error.name !== "AbortError") {
+        this.#setState({ keyPhraseGeneration: false });
+        throw error;
+      }
+    }    
   }
 
   async #fetchResults() {
     this.#setState({ loading: true });
 
-    if (this.#abortController) {
-      this.#abortController.abort();
+    if (this.#abortControllerResult) {
+      this.#abortControllerResult.abort();
     }
-    this.#abortController = new AbortController();
+    this.#abortControllerResult = new AbortController();
 
     try {
       const response = await fetch('https://random-data-api.com/api/v2/appliances?size=12', {
-        signal: this.#abortController.signal,
+        signal: this.#abortControllerResult.signal,
       });
       if (!response.ok)
         throw new Error(`Response error from the "${response.url}" URL`);
 
       const data = await response.json();
       const state: StateInterface = {
+        keyPhraseGeneration: this.#state.keyPhraseGeneration,
         loading: false, 
         error: false, 
         items: []
@@ -124,6 +211,10 @@ class IdeaMatrix extends HTMLElement {
   }
 
   #render() {
+    if (this.#$keyPhraseInput) {
+      this.#$keyPhraseInput.disabled = this.#state.keyPhraseGeneration;
+    }
+
     if (this.#state.loading) {
       this.#$resultContainer!.innerHTML = this.#$loadingTemplate!.innerHTML;
       return;
@@ -131,6 +222,11 @@ class IdeaMatrix extends HTMLElement {
 
     if (this.#state.error) {
       this.#$resultContainer!.innerHTML = this.#$errorTemplate!.innerHTML;
+      return;
+    }
+
+    if (this.#state.items.length === 0) {
+      this.#$resultContainer!.innerHTML = '';
       return;
     }
 
