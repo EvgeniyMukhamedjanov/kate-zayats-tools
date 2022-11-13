@@ -6,81 +6,146 @@
   <title>Matrix</title>
   <link href="./css/main.css" rel="stylesheet">
 </head>
-<body>
-  <div class="mx-auto" style="max-width:900px;padding:0 1rem">
+<body class="tRoot">
 
-    <idea-matrix>
-      <form>
-        <div class="flex items-stretch">
-          <div class="rounded-lg border h-12 flex items-stretch overflow-hidden mr-8 grow">
-            <div class="flex items-stretch border-r border-inherit w-2/3">
-              <button class="pl-3.5" type="button" data-idea-matrix-key-phrase-generate>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1V6H1.582M1.582 6C2.24585 4.35813 3.43568 2.98291 4.96503 2.08986C6.49438 1.19682 8.2768 0.836417 10.033 1.06514C11.7891 1.29387 13.4198 2.0988 14.6694 3.35378C15.919 4.60876 16.7168 6.24287 16.938 8M1.582 6H6M17 17V12H16.419M16.419 12C15.7542 13.6409 14.564 15.0151 13.0348 15.9073C11.5056 16.7995 9.72374 17.1595 7.9681 16.9309C6.21246 16.7022 4.5822 15.8979 3.33253 14.6437C2.08287 13.3896 1.28435 11.7564 1.062 10M16.419 12H12" stroke="#D1DAE5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <input type="text" name="" placeholder="Word" class="grow w-px px-3.5" data-idea-matrix-key-phrase>
-              <button class="pr-3.5" type="button" data-idea-matrix-key-phrase-clean>
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M5.11616 5.99997L0.558106 10.558L1.44199 11.4419L6.00005 6.88385L10.5581 11.4419L11.442 10.558L6.88393 5.99997L11.442 1.44191L10.5581 0.558029L6.00005 5.11609L1.44199 0.558029L0.558105 1.44191L5.11616 5.99997Z" fill="#C5C5C5"/>
-                </svg>
-
-              </button>
-            </div>
-            <div class="w-1/3">
-              <select class="tSelect w-full h-full pl-3.5 pr-9" data-idea-matrix-category>
-                <option>Web Design</option>
-                <option>Illustration</option>
-                <option>Animation</option>
-                <option>Branding</option>
-                <option>UI</option>
-              </select>
-            </div>
-          </div>
-          <button class="tButton mr-8 w-32" type="submit">
-            Go!
-          </button>
-          <button class="flex items-center" type="button" data-idea-matrix-random>
-            <span class="pr-3.5 inline-block">
-              <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.83871 17.2154C0.375503 17.2154 0 16.8444 0 16.3867C0 15.929 0.375503 15.558 0.83871 15.558H7.06167L9.69761 11L7.06167 6.44205H0.83871C0.375503 6.44205 0 6.07102 0 5.61333C0 5.15564 0.375503 4.78461 0.83871 4.78461H8.03511L10.6636 9.32966L13.7713 3.95589H17.6129V0L26 4.78461L17.6129 9.56922V5.61333H14.7448L11.6296 11L14.7448 16.3867H17.6129V12.4308L26 17.2154L17.6129 22V18.0441H13.7713L10.6636 12.6703L8.03511 17.2154H0.83871Z" fill="#F64C0E"/>
-              </svg>
-            </span><span>Random</span>
-          </button>
+  <div class="tMainTabs">
+    <input type="radio" name="idea-matrix-tabs" id="idea-matrix-tabs__main" checked>
+    <label class="tMainTabs_Label tH4" for="idea-matrix-tabs__main">Idea Matrix</label>
+    <div class="tMainTabs_Content">
+      
+      <div class="tContainer" style="max-width: 900px;">
+        <div class="text-center mb-10">
+          <div class="mb-3 tH1">Idea Matrix</div>
+          <p>
+            Use the idea matrix to generate unusual and creative solutions. <br/>
+            Choose a theme and click to go! The results will surprise you
+          </p>
         </div>
+        <idea-matrix>
+          <form>
+            <div class="flex items-stretch flex-wrap sm:flex-nowrap">
+              <div class="rounded-lg border border-color-2 divide-x divide-color-2 h-12 flex items-stretch overflow-hidden mb-4 sm:mb-0 sm:mr-8 grow">
+                <div class="flex items-stretch grow lg:w-2/3">
+                  <button class="pl-3.5 group" type="button" data-idea-matrix-key-phrase-generate>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 1V6H1.582M1.582 6C2.24585 4.35813 3.43568 2.98291 4.96503 2.08986C6.49438 1.19682 8.2768 0.836417 10.033 1.06514C11.7891 1.29387 13.4198 2.0988 14.6694 3.35378C15.919 4.60876 16.7168 6.24287 16.938 8M1.582 6H6M17 17V12H16.419M16.419 12C15.7542 13.6409 14.564 15.0151 13.0348 15.9073C11.5056 16.7995 9.72374 17.1595 7.9681 16.9309C6.21246 16.7022 4.5822 15.8979 3.33253 14.6437C2.08287 13.3896 1.28435 11.7564 1.062 10M16.419 12H12" class="stroke-color-2 group-hover:stroke-color-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <div class="grow">
+                    <input type="text" name="" placeholder="Word" class="w-full h-full px-3.5 outline-0" data-idea-matrix-key-phrase>
+                  </div>
+                  <button class="pr-3.5 group" type="button" data-idea-matrix-key-phrase-clean>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M5.11616 5.99997L0.558106 10.558L1.44199 11.4419L6.00005 6.88385L10.5581 11.4419L11.442 10.558L6.88393 5.99997L11.442 1.44191L10.5581 0.558029L6.00005 5.11609L1.44199 0.558029L0.558105 1.44191L5.11616 5.99997Z" class="fill-color-2 group-hover:fill-color-3"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="lg:w-1/3 shrink-0">
+                  <select class="tSelect w-full h-full pl-3.5 pr-9" data-idea-matrix-category>
+                    <option>Web Design</option>
+                    <option>Illustration</option>
+                    <option>Animation</option>
+                    <option>Branding</option>
+                    <option>UI</option>
+                  </select>
+                </div>
+              </div>
+              
+              <button class="tButton sm:mr-8 grow w-full sm:w-32 mb-4 sm:mb-0" type="submit">
+                Go!
+              </button>
+              <button class="flex items-center text-color-3 hover:text-color-1" type="button" data-idea-matrix-random>
+                <span class="pr-3.5 inline-block">
+                  <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.83871 17.2154C0.375503 17.2154 0 16.8444 0 16.3867C0 15.929 0.375503 15.558 0.83871 15.558H7.06167L9.69761 11L7.06167 6.44205H0.83871C0.375503 6.44205 0 6.07102 0 5.61333C0 5.15564 0.375503 4.78461 0.83871 4.78461H8.03511L10.6636 9.32966L13.7713 3.95589H17.6129V0L26 4.78461L17.6129 9.56922V5.61333H14.7448L11.6296 11L14.7448 16.3867H17.6129V12.4308L26 17.2154L17.6129 22V18.0441H13.7713L10.6636 12.6703L8.03511 17.2154H0.83871Z" class="fill-color-general"/>
+                  </svg>
+                </span><span class="border-b leading-none border-dotted">Random</span>
+              </button>
+              
+            </div>
 
-        <div class="mt-12" data-idea-matrix-result>
-          
+            <div class="mt-12" data-idea-matrix-result>
+              
+            </div>
+
+            <template data-idea-matrix-loading-tmp>
+              <div class="text-center">
+                <span class="animate-spin border-4 rounded-full border-r-transparent w-8 h-8 inline-block"></span>
+              </div>
+            </template>
+
+            <template data-idea-matrix-error-tmp>
+              <div class="text-center">
+                Error
+              </div>
+            </template>
+
+            <template data-idea-matrix-result-tmp>
+              <div class="sm:grid sm:grid-cols-2 sm:gap-x-4">
+                <div class="mb-4" data-idea-matrix-result-item></div>
+              </div>
+
+              <button class="flex items-center mt-12 group" type="submit">
+                <span class="pr-3.5 inline-block">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1V6H1.582M1.582 6C2.24585 4.35813 3.43568 2.98291 4.96503 2.08986C6.49438 1.19682 8.2768 0.836417 10.033 1.06514C11.7891 1.29387 13.4198 2.0988 14.6694 3.35378C15.919 4.60876 16.7168 6.24287 16.938 8M1.582 6H6M17 17V12H16.419M16.419 12C15.7542 13.6409 14.564 15.0151 13.0348 15.9073C11.5056 16.7995 9.72374 17.1595 7.9681 16.9309C6.21246 16.7022 4.5822 15.8979 3.33253 14.6437C2.08287 13.3896 1.28435 11.7564 1.062 10M16.419 12H12" class="stroke-color-2 group-hover:stroke-color-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span><span>Refresh</span>
+              </button>
+            </template>
+          </form>
+
+        </idea-matrix>
+      </div>
+    </div>
+
+    <input type="radio" name="idea-matrix-tabs" id="idea-matrix-tabs__about">
+    <label class="tMainTabs_Label tH4" for="idea-matrix-tabs__about">About</label>
+    <div class="tMainTabs_Content">
+      <div class="tContainer" style="max-width: 672px;">
+        <div class="text-center">
+          <h2 class="tH1">What is Idea Martrix?</h2>
+          <h3 class="tH3 mb-8 mt-12">What is Lorem Ipsum</h3>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          </p>
         </div>
+      </div>
+    </div>
 
-        <template data-idea-matrix-loading-tmp>
-          <div class="text-center">
-            <span class="animate-spin border-4 rounded-full border-r-transparent w-8 h-8 inline-block"></span>
-          </div>
-        </template>
+  </div>
 
-        <template data-idea-matrix-error-tmp>
-          <div class="text-center">
-            Error
-          </div>
-        </template>
 
-        <template data-idea-matrix-result-tmp>
-          <div class="flex flex-wrap">
-            <div class="w-1/2 mb-4" data-idea-matrix-result-item></div>
-          </div>
+<hr class="mt-20" />
 
-          <button class="flex items-center mt-12" type="submit">
-            <span class="pr-3.5 inline-block">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1V6H1.582M1.582 6C2.24585 4.35813 3.43568 2.98291 4.96503 2.08986C6.49438 1.19682 8.2768 0.836417 10.033 1.06514C11.7891 1.29387 13.4198 2.0988 14.6694 3.35378C15.919 4.60876 16.7168 6.24287 16.938 8M1.582 6H6M17 17V12H16.419M16.419 12C15.7542 13.6409 14.564 15.0151 13.0348 15.9073C11.5056 16.7995 9.72374 17.1595 7.9681 16.9309C6.21246 16.7022 4.5822 15.8979 3.33253 14.6437C2.08287 13.3896 1.28435 11.7564 1.062 10M16.419 12H12" stroke="#D1DAE5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span><span>Refresh</span>
-          </button>
-        </template>
-      </form>
+  <div class="tMainTabs">
+    <input type="radio" name="framer-tabs" id="framer-tabs__main" checked>
+    <label class="tMainTabs_Label tH4" for="framer-tabs__main">Framer</label>
+    <div class="tMainTabs_Content">
+      
+      <div class="tContainer" style="max-width: 900px;">
+        <div class="text-center mb-10">
+          <div class="mb-3 tH1">Framer</div>
+          <p>
+            Website Responsiveness Frame. Just add a link.
+          </p>
+        </div>
+      </div>
+    </div>
 
-    </idea-matrix>
+    <input type="radio" name="framer-tabs" id="framer-tabs__about">
+    <label class="tMainTabs_Label tH4" for="framer-tabs__about">About</label>
+    <div class="tMainTabs_Content">
+      <div class="tContainer" style="max-width: 672px;">
+        <div class="text-center">
+          <h2 class="tH1">What is Framer?</h2>
+          <h3 class="tH3 mb-8 mt-12">What is Lorem Ipsum</h3>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+      </div>
+    </div>
 
   </div>
 
