@@ -9,7 +9,7 @@
 <body class="tRoot">
 
   <div class="tMainTabs">
-    <input type="radio" name="idea-matrix-tabs" id="idea-matrix-tabs__main" checked>
+    <input type="radio" class="visibility-hidden" name="idea-matrix-tabs" id="idea-matrix-tabs__main" checked>
     <label class="tMainTabs_Label tH4" for="idea-matrix-tabs__main">Idea Matrix</label>
     <div class="tMainTabs_Content">
       
@@ -99,7 +99,7 @@
       </div>
     </div>
 
-    <input type="radio" name="idea-matrix-tabs" id="idea-matrix-tabs__about">
+    <input type="radio" class="visibility-hidden" name="idea-matrix-tabs" id="idea-matrix-tabs__about">
     <label class="tMainTabs_Label tH4" for="idea-matrix-tabs__about">About</label>
     <div class="tMainTabs_Content">
       <div class="tContainer" style="max-width: 672px;">
@@ -119,21 +119,73 @@
 <hr class="mt-20" />
 
   <div class="tMainTabs">
-    <input type="radio" name="framer-tabs" id="framer-tabs__main" checked>
+    <input type="radio" class="visibility-hidden" name="framer-tabs" id="framer-tabs__main" checked>
     <label class="tMainTabs_Label tH4" for="framer-tabs__main">Framer</label>
     <div class="tMainTabs_Content">
       
-      <div class="tContainer" style="max-width: 900px;">
+      <div class="tContainer" style="max-width: 1145px;">
         <div class="text-center mb-10">
           <div class="mb-3 tH1">Framer</div>
           <p>
             Website Responsiveness Frame. Just add a link.
           </p>
         </div>
+        <responsive-frame>
+          <form>
+            <div class="flex items-stretch">
+              <div class="rounded-lg border border-color-2 divide-x divide-color-2 h-12 flex items-stretch overflow-hidden mr-8">
+                <label class="w-16 cursor-pointer">
+                  <input type="radio" name="framer-device-category" class="visibility-hidden peer" data-responsive-frame-device-cat value="desktop" checked>
+                  <div class="w-full h-full flex justify-center items-center peer-checked:bg-color-5">
+                    <svg width="33" height="25" viewBox="0 0 33 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <mask id="path-1-inside-1_1511_7252" fill="white">
+                      <rect width="33" height="20" rx="1"/>
+                      </mask>
+                      <rect width="33" height="20" rx="1" stroke="black" stroke-width="3" mask="url(#path-1-inside-1_1511_7252)"/>
+                      <line x1="16.75" y1="20" x2="16.75" y2="24" stroke="black" stroke-width="1.5"/>
+                      <line x1="26" y1="23.75" x2="7" y2="23.75" stroke="black" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                </label>
+                <label class="w-16 cursor-pointer">
+                  <input type="radio" name="framer-device-category" class="visibility-hidden peer" data-responsive-frame-device-cat value="tablet">
+                  <div class="w-full h-full flex justify-center items-center peer-checked:bg-color-5">
+                    <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <mask id="path-1-inside-1_1511_7256" fill="white">
+                      <rect width="18" height="24" rx="1"/>
+                      </mask>
+                      <rect width="18" height="24" rx="1" stroke="black" stroke-width="3" mask="url(#path-1-inside-1_1511_7256)"/>
+                      <line x1="11" y1="19.75" x2="7" y2="19.75" stroke="black" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                </label>
+                <label class="w-16 cursor-pointer">
+                  <input type="radio" name="framer-device-category" class="visibility-hidden peer" data-responsive-frame-device-cat value="mobile">
+                  <div class="w-full h-full flex justify-center items-center peer-checked:bg-color-5">
+                    <svg width="11" height="19" viewBox="0 0 11 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="0.75" y="0.75" width="9.5" height="17.5" rx="1.25" stroke="black" stroke-width="1.5"/>
+                      <line x1="6.72223" y1="15.7917" x2="4.27778" y2="15.7917" stroke="black" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                </label>
+              </div>
+
+              <div class="rounded-lg border border-color-2 divide-x divide-color-2 h-12 flex items-stretch overflow-hidden grow">
+                <input type="text" data-responsive-frame-url class="w-full h-full px-3.5 outline-0" placeholder="www.">
+              </div>
+            </div>
+          </form>
+
+          <div class="mt-8">
+            <div class="rounded-lg border border-color-2 overflow-hidden mx-auto" data-responsive-frame-iframe-container>
+              <iframe src="" class="w-full h-96"></iframe>
+            </div>
+          </div>
+        </responsive-frame>
       </div>
     </div>
 
-    <input type="radio" name="framer-tabs" id="framer-tabs__about">
+    <input type="radio" class="visibility-hidden" name="framer-tabs" id="framer-tabs__about">
     <label class="tMainTabs_Label tH4" for="framer-tabs__about">About</label>
     <div class="tMainTabs_Content">
       <div class="tContainer" style="max-width: 672px;">
@@ -149,8 +201,11 @@
 
   </div>
 
+  <hr class="mt-20" />
+
   <script type="module">
     import "./js/idea-matrix.js";
+    import "./js/responsive-frame.js";
   </script>
 </body>
 </html>

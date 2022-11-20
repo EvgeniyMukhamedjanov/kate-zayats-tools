@@ -246,3 +246,5 @@ class IdeaMatrix extends HTMLElement {
   }
 }
 customElements.define("idea-matrix", IdeaMatrix);
+
+export {}
