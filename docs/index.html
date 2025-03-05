@@ -309,6 +309,25 @@
 }
 
   </script>
+  <script>
+    const $script = document.querySelector("script[type='application/ld+json']");
+    const json = JSON.parse($script.innerHTML);
+    json.hasVariant.push({
+      "@id": "/products/test?variant=44524649316535#variant",
+      "@type": "Product",
+      "image": "https://barrett-sandbox.myshopify.com/cdn/shop/products/balance-athletica-bottoms-xs-the-og-pant-rain-102r-xs-6701953843257.jpg?v=1627410606\u0026width=1920",
+      "name": "Test",
+      "offers": {
+        "@id": "/products/test?variant=44524649316535#offer",
+        "@type": "Offer",
+        "availability": "http://schema.org/InStock",
+        "price": "0",
+        "priceCurrency": "USD",
+        "url": "https://barrett-sandbox.myshopify.com/products/test?variant=44524649316535"
+      },
+      "sku": "TEST"
+    });
+  </script>
 
   <script type="module">
     import "./js/idea-matrix.js";
